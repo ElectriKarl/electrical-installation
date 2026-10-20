@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071b35">
+  <meta name="description" content="ElectriKarl provides dependable electrical installation, solar, and CAD design services. Contact us for a project quotation.">
+  <title>ElectriKarl | Electrical, Solar &amp; CAD Design</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --navy: #071b35;
+      --navy-soft: #102b4b;
+      --blue: #0d8bbb;
+      --cyan: #45c8e6;
+      --gold: #e4a82c;
+      --ink: #16283c;
+      --muted: #627286;
+      --paper: #f5f8fb;
+      --white: #fff;
+      --line: #e2e9f0;
+      --shadow: 0 22px 60px rgba(7, 27, 53, .12);
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: var(--white); line-height: 1.6; }
+    a { color: inherit; }
+    button, input, select, textarea { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .container { width: min(1140px, calc(100% - 40px)); margin: 0 auto; }
+
+    .topline { background: #041326; color: #d4e3f1; font-size: .83rem; }
+    .topline-inner { display: flex; justify-content: space-between; align-items: center; min-height: 38px; gap: 16px; }
+    .topline a { text-decoration: none; }
+    .topline a:hover { color: var(--cyan); }
+    .topline-contact { display: flex; gap: 22px; flex-wrap: wrap; }
+    .topline-note { color: #a8bacd; }
+
+    .site-header { position: sticky; z-index: 10; top: 0; background: rgba(255,255,255,.96); border-bottom: 1px solid rgba(226,233,240,.85); backdrop-filter: blur(14px); }
+    .nav-row { min-height: 82px; display: flex; justify-content: space-between; align-items: center; gap: 28px; }
+    .brand { display: inline-flex; align-items: center; text-decoration: none; min-width: 190px; }
+    .brand img { display: block; width: 190px; height: auto; }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a { position: relative; text-decoration: none; color: #34475d; font-size: .94rem; font-weight: 650; transition: color .2s; }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-links .nav-quote { padding: 11px 19px; color: var(--white); background: var(--navy); border-radius: 7px; }
+    .nav-links .nav-quote:hover { color: var(--white); background: var(--blue); }
+    .menu-toggle { display: none; align-items: center; justify-content: center; width: 44px; height: 44px; color: var(--navy); background: var(--paper); border: 0; border-radius: 8px; cursor: pointer; }
+
+    .hero { position: relative; isolation: isolate; overflow: hidden; color: var(--white); background: var(--navy); }
+    .hero::before { position: absolute; z-index: -1; inset: 0; content: ""; background: radial-gradient(ellipse at 82% 43%, rgba(23,153,202,.25), transparent 38%), linear-gradient(112deg, #071b35 12%, #0b2948 65%, #0a3456); }
+    .hero::after { position: absolute; z-index: -1; top: -170px; right: -90px; width: 610px; height: 610px; border: 1px solid rgba(107,210,233,.18); border-radius: 50%; box-shadow: 0 0 0 56px rgba(107,210,233,.035), 0 0 0 112px rgba(107,210,233,.025); content: ""; }
+    .hero-grid { min-height: 585px; display: grid; grid-template-columns: 1.08fr .92fr; align-items: center; gap: 45px; padding-top: 20px; padding-bottom: 20px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; color: var(--gold); text-transform: uppercase; font-size: .76rem; letter-spacing: .17em; font-weight: 800; }
+    .eyebrow::before { width: 29px; height: 2px; background: currentColor; content: ""; }
+    h1, h2, h3, p { margin-top: 0; }
+    .hero h1 { max-width: 680px; margin: 19px 0; font-size: clamp(2.7rem, 5vw, 4.55rem); line-height: 1.07; letter-spacing: -.045em; }
+    .hero h1 span { color: var(--cyan); }
+    .hero-copy { max-width: 560px; margin-bottom: 28px; color: #c1d0df; font-size: 1.08rem; }
+    .button-row { display: flex; flex-wrap: wrap; align-items: center; gap: 13px; }
+    .button { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: 10px; padding: 0 20px; border: 1px solid transparent; border-radius: 7px; text-decoration: none; font-weight: 750; transition: transform .2s, background .2s, border-color .2s; cursor: pointer; }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { color: #10243a; background: var(--gold); }
+    .button-primary:hover { background: #f2bd4c; }
+    .button-ghost { color: var(--white); border-color: rgba(255,255,255,.35); }
+    .button-ghost:hover { border-color: var(--cyan); background: rgba(255,255,255,.07); }
+    .hero-art { position: relative; display: grid; min-height: 380px; place-items: center; }
+    .art-glow { position: absolute; width: 330px; height: 330px; border-radius: 50%; background: rgba(34,174,213,.16); filter: blur(45px); }
+    .art-card { position: relative; width: min(100%, 430px); padding: 24px; border: 1px solid rgba(189,223,240,.2); border-radius: 20px; background: linear-gradient(145deg, rgba(255,255,255,.13), rgba(255,255,255,.045)); box-shadow: 0 30px 80px rgba(0,0,0,.2); transform: rotate(2deg); }
+    .art-card img { display: block; width: 100%; height: auto; border-radius: 12px; }
+    .art-caption { display: flex; justify-content: space-between; align-items: center; gap: 15px; padding: 18px 2px 0; color: #d6e8f4; font-size: .85rem; }
+    .art-status { display: inline-flex; align-items: center; gap: 8px; color: #a9dfd1; }
+    .art-status::before { width: 8px; height: 8px; border-radius: 50%; background: #51d7a4; content: ""; box-shadow: 0 0 12px rgba(81,215,164,.7); }
+
+    .trust-strip { position: relative; z-index: 1; margin-top: -1px; background: #fff; box-shadow: 0 10px 30px rgba(7,27,53,.06); }
+    .trust-grid { display: grid; grid-template-columns: repeat(3,1fr); padding-top: 23px; padding-bottom: 23px; }
+    .trust-item { display: flex; justify-content: center; align-items: center; gap: 12px; padding: 8px 20px; color: #41556a; font-size: .91rem; font-weight: 700; }
+    .trust-item + .trust-item { border-left: 1px solid var(--line); }
+    .trust-icon { display: grid; width: 38px; height: 38px; flex: 0 0 38px; place-items: center; color: var(--blue); background: #e9f6fb; border-radius: 10px; }
+    .trust-icon svg { width: 20px; height: 20px; }
+
+    section { scroll-margin-top: 90px; }
+    .section { padding-top: 96px; padding-bottom: 96px; }
+    .section-heading { max-width: 690px; margin: 0 auto 45px; text-align: center; }
+    .section-heading .eyebrow { justify-content: center; }
+    .section-heading h2, .about-copy h2, .quote-copy h2 { margin: 14px 0; color: var(--navy); font-size: clamp(2rem, 3.3vw, 2.8rem); line-height: 1.16; letter-spacing: -.035em; }
+    .section-heading p, .about-copy > p { margin-bottom: 0; color: var(--muted); }
+
+    .about-section { background: var(--paper); }
+    .about-grid { display: grid; grid-template-columns: .95fr 1.05fr; align-items: center; gap: 72px; }
+    .about-visual { position: relative; min-height: 390px; display: grid; place-items: center; overflow: hidden; border-radius: 18px; background: linear-gradient(145deg, #0c3154, #071b35); }
+    .about-visual::before, .about-visual::after { position: absolute; width: 300px; height: 300px; border: 1px solid rgba(76,196,221,.28); border-radius: 50%; content: ""; }
+    .about-visual::after { width: 220px; height: 220px; }
+    .visual-bolt { position: relative; z-index: 1; color: var(--gold); font-size: 9rem; line-height: 1; filter: drop-shadow(0 10px 35px rgba(228,168,44,.35)); }
+    .visual-label { position: absolute; right: 22px; bottom: 20px; left: 22px; color: #d2e0ee; text-align: center; font-size: .87rem; letter-spacing: .08em; text-transform: uppercase; }
+    .about-copy .eyebrow { color: var(--blue); }
+    .about-copy > p { margin-bottom: 24px; }
+    .check-list { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+    .check-list li { display: flex; align-items: flex-start; gap: 11px; color: #3c5065; font-weight: 650; }
+    .check { display: grid; width: 23px; height: 23px; flex: 0 0 23px; place-items: center; color: #087ba1; background: #dff4fa; border-radius: 50%; font-size: .78rem; font-weight: 900; }
+
+    .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .service-card { padding: 29px 27px; border: 1px solid var(--line); border-radius: 12px; background: var(--white); transition: transform .2s, box-shadow .2s, border-color .2s; }
+    .service-card:hover { transform: translateY(-5px); border-color: #c1e8f2; box-shadow: var(--shadow); }
+    .service-icon { display: grid; width: 52px; height: 52px; margin-bottom: 21px; place-items: center; color: var(--blue); background: #eaf7fb; border-radius: 13px; }
+    .service-icon svg { width: 27px; height: 27px; }
+    .service-card h3 { margin-bottom: 9px; color: var(--navy); font-size: 1.15rem; }
+    .service-card p { margin-bottom: 0; color: var(--muted); font-size: .94rem; }
+    .service-note { margin: 26px 0 0; color: var(--muted); text-align: center; font-size: .9rem; }
+
+    .quote-section { position: relative; overflow: hidden; background: #f3f7fa; }
+    .quote-section::after { position: absolute; top: -170px; right: -140px; width: 430px; height: 430px; border: 1px solid #dce9f0; border-radius: 50%; content: ""; box-shadow: 0 0 0 45px rgba(220,233,240,.4), 0 0 0 90px rgba(220,233,240,.24); }
+    .quote-grid { position: relative; z-index: 1; display: grid; grid-template-columns: .85fr 1.15fr; align-items: start; gap: 60px; }
+    .quote-copy { padding-top: 17px; }
+    .quote-copy .eyebrow { color: var(--blue); }
+    .quote-copy > p { color: var(--muted); }
+    .contact-list { display: grid; gap: 13px; margin-top: 27px; }
+    .contact-row { display: flex; align-items: center; gap: 12px; color: var(--navy); text-decoration: none; font-weight: 700; }
+    .contact-row:hover { color: var(--blue); }
+    .contact-row .trust-icon { width: 39px; height: 39px; }
+    .quote-form { padding: 32px; border: 1px solid var(--line); border-radius: 14px; background: #fff; box-shadow: 0 18px 50px rgba(7,27,53,.08); }
+    .form-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 17px; }
+    .field { display: grid; gap: 7px; }
+    .field-full { grid-column: 1 / -1; }
+    .field label { color: #34475d; font-size: .86rem; font-weight: 750; }
+    .field input, .field select, .field textarea { width: 100%; min-height: 46px; padding: 11px 12px; color: var(--ink); border: 1px solid #d9e2ea; border-radius: 6px; background: #fff; outline: none; transition: border .2s, box-shadow .2s; }
+    .field textarea { min-height: 112px; resize: vertical; }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(13,139,187,.12); }
+    .form-actions { display: flex; align-items: center; gap: 14px; margin-top: 20px; }
+    .form-actions .button { border: 0; }
+    .form-hint { margin: 0; color: var(--muted); font-size: .78rem; }
+    .form-status { min-height: 24px; margin: 12px 0 0; color: #087a59; font-size: .88rem; font-weight: 650; }
+
+    .social-section { padding: 53px 0; color: var(--white); background: var(--navy); }
+    .social-row { display: flex; justify-content: space-between; align-items: center; gap: 30px; }
+    .social-copy h2 { margin: 0 0 5px; font-size: 1.55rem; }
+    .social-copy p { margin: 0; color: #b8c9d9; font-size: .92rem; }
+    .social-links { display: flex; align-items: center; gap: 10px; }
+    .social-link { display: grid; width: 44px; height: 44px; place-items: center; color: #e4eff8; border: 1px solid rgba(255,255,255,.22); border-radius: 50%; text-decoration: none; transition: background .2s, transform .2s; }
+    .social-link:hover { transform: translateY(-2px); color: var(--navy); background: var(--cyan); }
+    .social-link svg { width: 19px; height: 19px; fill: currentColor; }
+
+    .site-footer { padding: 24px 0; color: #b2c0ce; background: #041326; font-size: .83rem; }
+    .footer-row { display: flex; justify-content: space-between; align-items: center; gap: 18px; }
+    .footer-row p { margin: 0; }
+    .footer-links { display: flex; gap: 17px; }
+    .footer-links a { color: inherit; text-decoration: none; }
+    .footer-links a:hover { color: var(--cyan); }
+
+    .messenger-launcher { position: fixed; z-index: 20; right: 24px; bottom: 24px; display: inline-flex; min-height: 55px; align-items: center; gap: 11px; padding: 0 19px; color: #fff; border: 0; border-radius: 999px; background: #0878e8; box-shadow: 0 12px 30px rgba(0,75,170,.3); font-weight: 750; cursor: pointer; transition: transform .2s; }
+    .messenger-launcher:hover { transform: translateY(-3px); }
+    .messenger-launcher svg { width: 23px; height: 23px; fill: currentColor; }
+    .chat-panel { position: fixed; z-index: 21; right: 24px; bottom: 92px; width: min(350px, calc(100vw - 32px)); overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: #fff; box-shadow: 0 18px 55px rgba(7,27,53,.24); }
+    .chat-panel[hidden] { display: none; }
+    .chat-head { display: flex; justify-content: space-between; align-items: center; padding: 16px 18px; color: #fff; background: #0878e8; }
+    .chat-head strong { font-size: .97rem; }
+    .chat-close { display: grid; width: 30px; height: 30px; place-items: center; color: #fff; border: 0; border-radius: 50%; background: rgba(255,255,255,.17); cursor: pointer; }
+    .chat-body { padding: 18px; }
+    .chat-bubble { margin: 0 0 14px; padding: 12px 14px; color: #34475d; border-radius: 4px 14px 14px 14px; background: #f0f4f8; font-size: .92rem; }
+    .chat-body label { display: block; margin-bottom: 7px; color: #34475d; font-size: .82rem; font-weight: 700; }
+    .chat-body textarea { width: 100%; min-height: 78px; padding: 10px; border: 1px solid #d9e2ea; border-radius: 7px; resize: vertical; }
+    .chat-send { display: inline-flex; min-height: 42px; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; padding: 0 14px; color: #fff; border: 0; border-radius: 6px; background: #0878e8; text-decoration: none; font-size: .9rem; font-weight: 750; cursor: pointer; }
+    .chat-send:hover { background: #0868ca; }
+    .chat-note { margin: 9px 0 0; color: var(--muted); font-size: .75rem; }
+
+    @media (max-width: 850px) {
+      .nav-links { gap: 19px; }
+      .hero-grid { grid-template-columns: 1.1fr .9fr; gap: 20px; }
+      .art-card { padding: 15px; }
+      .about-grid { gap: 40px; }
+      .quote-grid { gap: 35px; }
+    }
+    @media (max-width: 700px) {
+      .container { width: min(100% - 32px, 540px); }
+      .topline-inner { justify-content: center; padding: 8px 0; }
+      .topline-note { display: none; }
+      .topline-contact { justify-content: center; gap: 7px 16px; }
+      .nav-row { min-height: 70px; }
+      .brand { min-width: auto; }
+      .brand img { width: 154px; }
+      .menu-toggle { display: inline-flex; }
+      .nav-links { position: absolute; top: 70px; right: 0; left: 0; display: none; align-items: stretch; gap: 0; padding: 9px 20px 18px; border-bottom: 1px solid var(--line); background: #fff; box-shadow: 0 12px 20px rgba(7,27,53,.08); }
+      .nav-links.open { display: flex; flex-direction: column; }
+      .nav-links a { padding: 12px 8px; }
+      .nav-links .nav-quote { margin-top: 5px; text-align: center; }
+      .hero-grid { min-height: unset; grid-template-columns: 1fr; gap: 8px; padding-top: 66px; padding-bottom: 40px; }
+      .hero h1 { font-size: clamp(2.55rem, 12vw, 3.7rem); }
+      .hero-copy { font-size: 1rem; }
+      .hero-art { min-height: 285px; margin-top: 5px; }
+      .art-card { width: min(86%, 390px); }
+      .art-card img { max-height: 180px; object-fit: cover; }
+      .trust-grid { grid-template-columns: 1fr; padding-top: 10px; padding-bottom: 10px; }
+      .trust-item { justify-content: flex-start; padding: 10px 7px; }
+      .trust-item + .trust-item { border-top: 1px solid var(--line); border-left: 0; }
+      .section { padding-top: 69px; padding-bottom: 69px; }
+      .section-heading { margin-bottom: 32px; }
+      .about-grid, .quote-grid { grid-template-columns: 1fr; gap: 30px; }
+      .about-visual { min-height: 280px; }
+      .visual-bolt { font-size: 7rem; }
+      .services-grid { grid-template-columns: 1fr; gap: 13px; }
+      .service-card { padding: 23px; }
+      .quote-form { padding: 22px 18px; }
+      .social-row { align-items: flex-start; flex-direction: column; gap: 20px; }
+      .footer-row { align-items: flex-start; flex-direction: column; }
+      .messenger-launcher { right: 15px; bottom: 15px; min-height: 50px; padding: 0 16px; }
+      .chat-panel { right: 16px; bottom: 76px; }
+    }
+    @media (max-width: 430px) {
+      .topline { font-size: .77rem; }
+      .form-grid { grid-template-columns: 1fr; }
+      .field-full { grid-column: auto; }
+      .form-actions { align-items: flex-start; flex-direction: column; }
+      .social-links { gap: 8px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topline">
+    <div class="container topline-inner">
+      <div class="topline-contact">
+        <a href="tel:09453982241">Call us: 0945 398 2241</a>
+        <a href="mailto:tuazonk787@gmail.com">tuazonk787@gmail.com</a>
+      </div>
+      <span class="topline-note">Electrical · Solar · CAD Design</span>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container nav-row">
+      <a class="brand" href="#home" aria-label="ElectriKarl home">
+        <img src="logo.jpg" alt="ElectriKarl Solar, Electrical, CAD Design">
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-nav">
+        <svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <nav class="nav-links" id="primary-nav" aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a class="nav-quote" href="#quotation">Get a quotation</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">Powering your next project</span>
+          <h1>Smart energy.<br><span>Solid connections.</span></h1>
+          <p class="hero-copy">Reliable electrical installation, solar solutions, and CAD design to help bring your home or business project to life.</p>
+          <div class="button-row">
+            <a class="button button-primary" href="#quotation">Request a quotation <span aria-hidden="true">→</span></a>
+            <a class="button button-ghost" href="#services">Explore our services</a>
+          </div>
+        </div>
+        <div class="hero-art" aria-label="ElectriKarl company logo">
+          <div class="art-glow"></div>
+          <div class="art-card">
+            <img src="logo.jpg" alt="ElectriKarl electrical, solar, and CAD design logo">
+            <div class="art-caption"><span>Designed for dependable power</span><span class="art-status">Here to help</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="trust-strip" aria-label="Our areas of expertise">
+      <div class="container trust-grid">
+        <div class="trust-item"><span class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 10-13h-7l1-7Z"/></svg></span>Electrical installations</div>
+        <div class="trust-item"><span class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg></span>Solar energy solutions</div>
+        <div class="trust-item"><span class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 4h16v16H4zM8 8h8v8H8zM8 2v4m8-4v4M8 18v4m8-4v4M2 8h4m12 0h4M2 16h4m12 0h4"/></svg></span>CAD design &amp; drafting</div>
+      </div>
+    </div>
+
+    <section class="section about-section" id="about">
+      <div class="container about-grid">
+        <div class="about-visual" aria-hidden="true">
+          <span class="visual-bolt">ϟ</span>
+          <span class="visual-label">Powering homes &amp; businesses</span>
+        </div>
+        <div class="about-copy">
+          <span class="eyebrow">About ElectriKarl</span>
+          <h2>Practical expertise, from plans to power.</h2>
+          <p>ElectriKarl brings electrical services, solar solutions, and CAD design together to support projects from early planning through installation. We focus on clear communication, thoughtful design, and work tailored to your needs.</p>
+          <ul class="check-list">
+            <li><span class="check" aria-hidden="true">✓</span>Solutions shaped around your project</li>
+            <li><span class="check" aria-hidden="true">✓</span>Clear communication from inquiry to completion</li>
+            <li><span class="check" aria-hidden="true">✓</span>Electrical, solar, and design services in one place</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">What we do</span>
+          <h2>Services built around your project</h2>
+          <p>Tell us what you’re planning. We’ll help you find the right service and next steps.</p>
+        </div>
+        <div class="services-grid">
+          <article class="service-card">
+            <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 10-13h-7l1-7Z"/></svg></span>
+            <h3>Electrical Services</h3>
+            <p>Electrical installation and project support for residential and commercial needs. Share your requirements for a tailored quotation.</p>
+          </article>
+          <article class="service-card">
+            <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/><path d="m14 3 1-2m3 5 2-1M7 9h.01"/></svg></span>
+            <h3>Solar Solutions</h3>
+            <p>Explore solar options for your property, including project planning and installation inquiries tailored to your energy goals.</p>
+          </article>
+          <article class="service-card">
+            <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 4h16v16H4zM8 8h8v8H8zM8 2v4m8-4v4M8 18v4m8-4v4M2 8h4m12 0h4M2 16h4m12 0h4"/></svg></span>
+            <h3>CAD Design &amp; Drafting</h3>
+            <p>CAD design and drafting support to help visualize, document, and prepare your project before work begins.</p>
+          </article>
+        </div>
+        <p class="service-note">Service scope and availability are confirmed for each project. Contact us to discuss your requirements.</p>
+      </div>
+    </section>
+
+    <section class="section quote-section" id="quotation">
+      <div class="container quote-grid">
+        <div class="quote-copy">
+          <span class="eyebrow">Let’s get started</span>
+          <h2>Request a project quotation</h2>
+          <p>Tell us a little about your project. Your email app will open with your request ready to send to our team.</p>
+          <div class="contact-list">
+            <a class="contact-row" href="tel:09453982241"><span class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 11.2 18.8a19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.2 3.18 2 2 0 0 1 4.18 1h3a2 2 0 0 1 2 1.72c.12.96.35 1.9.7 2.8a2 2 0 0 1-.45 2.11L8.16 8.9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.35 1.84.58 2.8.7a2 2 0 0 1 1.66 2.04Z"/></svg></span>0945 398 2241</a>
+            <a class="contact-row" href="mailto:tuazonk787@gmail.com"><span class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span>tuazonk787@gmail.com</a>
+          </div>
+        </div>
+        <form class="quote-form" id="quote-form">
+          <div class="form-grid">
+            <div class="field">
+              <label for="name">Your name *</label>
+              <input id="name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="phone">Phone number *</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" required>
+            </div>
+            <div class="field field-full">
+              <label for="email">Email address</label>
+              <input id="email" name="email" type="email" autocomplete="email">
+            </div>
+            <div class="field field-full">
+              <label for="service">Service you’re interested in *</label>
+              <select id="service" name="service" required>
+                <option value="">Choose a service</option>
+                <option>Electrical services</option>
+                <option>Solar solutions</option>
+                <option>CAD design &amp; drafting</option>
+                <option>More than one service</option>
+                <option>Other / not sure yet</option>
+              </select>
+            </div>
+            <div class="field field-full">
+              <label for="details">Project details *</label>
+              <textarea id="details" name="details" placeholder="What would you like us to know about your project?" required></textarea>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="button button-primary" type="submit">Prepare my request <span aria-hidden="true">→</span></button>
+            <p class="form-hint">Opens your default email app to send.</p>
+          </div>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="social-section" aria-label="Follow ElectriKarl">
+      <div class="container social-row">
+        <div class="social-copy">
+          <h2>Follow ElectriKarl</h2>
+          <p>Connect with us and see what we’re working on.</p>
+        </div>
+        <div class="social-links">
+          <a class="social-link" href="https://www.facebook.com/search/top?q=ElectriKarl" target="_blank" rel="noopener noreferrer" aria-label="Find ElectriKarl on Facebook">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-8.2h2.8l.42-3.2H13.5V7.56c0-.93.26-1.56 1.6-1.56h1.7V3.14c-.3-.04-1.34-.14-2.55-.14-2.52 0-4.25 1.54-4.25 4.37V9.6H7.14v3.2H10V21h3.5Z"/></svg>
+          </a>
+          <a class="social-link" href="https://www.tiktok.com/search?q=ElectriKarl" target="_blank" rel="noopener noreferrer" aria-label="Find ElectriKarl on TikTok">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.6 7.1a6.9 6.9 0 0 1-4.1-1.35v8.1a6.2 6.2 0 1 1-5.35-6.14v3.34a2.9 2.9 0 1 0 2.03 2.8V2h3.38a6.9 6.9 0 0 0 4.04 4.1v1Z"/></svg>
+          </a>
+          <a class="social-link" href="https://www.instagram.com/explore/search/keyword/?q=ElectriKarl" target="_blank" rel="noopener noreferrer" aria-label="Search for ElectriKarl on Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm5.25-3.25a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5Z"/></svg>
+          </a>
+          <a class="social-link" href="https://www.youtube.com/results?search_query=ElectriKarl" target="_blank" rel="noopener noreferrer" aria-label="Find ElectriKarl on YouTube">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.12-2.13C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.52A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.12 2.13c1.88.52 9.38.52 9.38.52s7.5 0 9.38-.52a3 3 0 0 0 2.12-2.13A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.55 15.6V8.4L15.82 12l-6.27 3.6Z"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <p>© <span id="current-year"></span> ElectriKarl. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="tel:09453982241">Call</a>
+        <a href="mailto:tuazonk787@gmail.com">Email</a>
+        <a href="#home">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <section class="chat-panel" id="chat-panel" aria-label="Messenger chat" hidden>
+    <div class="chat-head">
+      <strong>Chat with ElectriKarl</strong>
+      <button class="chat-close" type="button" aria-label="Close chat">×</button>
+    </div>
+    <div class="chat-body">
+      <p class="chat-bubble">Hi! Thanks for reaching out. Write a message and continue the conversation with us on Messenger.</p>
+      <label for="chat-message">Your message</label>
+      <textarea id="chat-message" placeholder="How can we help with your project?"></textarea>
+      <a class="chat-send" id="messenger-link" href="https://m.me/ElectriKarl" target="_blank" rel="noopener noreferrer">Continue to Messenger <span aria-hidden="true">→</span></a>
+      <p class="chat-note" id="chat-note" role="status" aria-live="polite">Your message will be copied so you can paste it into Messenger and send it.</p>
+    </div>
+  </section>
+  <button class="messenger-launcher" id="chat-launcher" type="button" aria-expanded="false" aria-controls="chat-panel">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.15 2 11.27c0 2.92 1.46 5.53 3.75 7.23V22l3.42-1.88c.91.25 1.86.39 2.83.39 5.52 0 10-4.15 10-9.24C22 6.15 17.52 2 12 2Zm1.02 12.45-2.55-2.72-4.97 2.72 5.47-5.81 2.62 2.72 4.9-2.72-5.47 5.81Z"/></svg>
+    Chat with us
+  </button>
+
+  <script>
+    const menuButton = document.querySelector(".menu-toggle");
+    const navigation = document.querySelector("#primary-nav");
+    menuButton.addEventListener("click", () => {
+      const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+      menuButton.setAttribute("aria-expanded", String(!isOpen));
+      menuButton.setAttribute("aria-label", isOpen ? "Open navigation menu" : "Close navigation menu");
+      navigation.classList.toggle("open", !isOpen);
+    });
+
+    navigation.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        navigation.classList.remove("open");
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.setAttribute("aria-label", "Open navigation menu");
+      }
+    });
+
+    document.querySelector("#current-year").textContent = new Date().getFullYear();
+
+    const quoteForm = document.querySelector("#quote-form");
+    quoteForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!quoteForm.reportValidity()) return;
+
+      const data = new FormData(quoteForm);
+      const subject = `Project quotation request - ${data.get("service")}`;
+      const body = [
+        `Name: ${data.get("name")}`,
+        `Phone: ${data.get("phone")}`,
+        `Email: ${data.get("email") || "Not provided"}`,
+        `Service: ${data.get("service")}`,
+        "",
+        "Project details:",
+        data.get("details")
+      ].join("\n");
+      const mailto = `mailto:tuazonk787@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      document.querySelector("#form-status").textContent = "Your email app should open with the request details. Please send the email to complete your inquiry.";
+      window.location.href = mailto;
+    });
+
+    const chatPanel = document.querySelector("#chat-panel");
+    const chatLauncher = document.querySelector("#chat-launcher");
+    const chatMessage = document.querySelector("#chat-message");
+    const messengerLink = document.querySelector("#messenger-link");
+    const closeChat = () => {
+      chatPanel.hidden = true;
+      chatLauncher.setAttribute("aria-expanded", "false");
+    };
+    chatLauncher.addEventListener("click", () => {
+      chatPanel.hidden = !chatPanel.hidden;
+      chatLauncher.setAttribute("aria-expanded", String(!chatPanel.hidden));
+      if (!chatPanel.hidden) chatMessage.focus();
+    });
+    document.querySelector(".chat-close").addEventListener("click", closeChat);
+    messengerLink.addEventListener("click", async (event) => {
+      const message = chatMessage.value.trim();
+      const chatNote = document.querySelector("#chat-note");
+      if (!message) {
+        event.preventDefault();
+        chatMessage.focus();
+        chatMessage.setAttribute("aria-invalid", "true");
+        chatNote.textContent = "Write a message first, then continue to Messenger.";
+        return;
+      }
+      chatMessage.removeAttribute("aria-invalid");
+      try {
+        await navigator.clipboard.writeText(message);
+        chatNote.textContent = "Message copied. Paste it into the Messenger conversation and send.";
+      } catch (error) {
+        chatNote.textContent = "Messenger will open. Copy your message from this box and paste it into the conversation.";
+      }
+    });
+  </script>
+</body>
+</html>
