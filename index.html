@@ -104,11 +104,39 @@
     .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
     .service-card { padding: 29px 27px; border: 1px solid var(--line); border-radius: 12px; background: var(--white); transition: transform .2s, box-shadow .2s, border-color .2s; }
     .service-card:hover { transform: translateY(-5px); border-color: #c1e8f2; box-shadow: var(--shadow); }
+    a.service-card { display: block; color: inherit; text-decoration: none; }
+    .service-card:focus-visible { outline: 3px solid rgba(13,139,187,.35); outline-offset: 3px; }
     .service-icon { display: grid; width: 52px; height: 52px; margin-bottom: 21px; place-items: center; color: var(--blue); background: #eaf7fb; border-radius: 13px; }
     .service-icon svg { width: 27px; height: 27px; }
     .service-card h3 { margin-bottom: 9px; color: var(--navy); font-size: 1.15rem; }
     .service-card p { margin-bottom: 0; color: var(--muted); font-size: .94rem; }
+    .service-card .service-note { display: inline-block; margin: 18px 0 0; color: var(--blue); text-align: left; font-weight: 750; }
     .service-note { margin: 26px 0 0; color: var(--muted); text-align: center; font-size: .9rem; }
+
+    .gallery-section { background: var(--paper); }
+    .gallery-controls { display: flex; justify-content: flex-end; gap: 10px; margin: -18px 0 18px; }
+    .gallery-control { display: grid; width: 44px; height: 44px; place-items: center; color: var(--navy); border: 1px solid #d4e0e9; border-radius: 50%; background: #fff; cursor: pointer; transition: color .2s, background .2s, border-color .2s; }
+    .gallery-control:hover { color: #fff; border-color: var(--blue); background: var(--blue); }
+    .gallery-control:focus-visible { outline: 3px solid rgba(13,139,187,.3); outline-offset: 2px; }
+    .gallery-control svg { width: 20px; height: 20px; }
+    .gallery-track { display: flex; gap: 0; overflow-x: auto; padding: 4px 2px 22px; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; }
+    .gallery-track::-webkit-scrollbar { display: none; }
+    .gallery-card { flex: 0 0 100%; min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 13px; background: #fff; box-shadow: 0 8px 22px rgba(7,27,53,.07); scroll-snap-align: start; }
+    .gallery-image-button { display: block; width: 100%; padding: 0; border: 0; background: #071b35; cursor: zoom-in; }
+    .gallery-card img { display: block; width: 100%; height: clamp(320px, 65vh, 720px); object-fit: contain; }
+    .gallery-image-button:focus-visible { outline: 3px solid var(--cyan); outline-offset: -3px; }
+    .gallery-card figcaption { min-height: 60px; padding: 15px 17px; color: var(--navy); font-size: .94rem; font-weight: 700; }
+
+    .gallery-lightbox { position: fixed; width: 100vw; max-width: none; height: 100vh; max-height: none; inset: 0; grid-template-rows: auto minmax(0, 1fr) auto; gap: 16px; padding: 20px 24px; color: #fff; border: 0; background: rgba(3,12,24,.97); }
+    .gallery-lightbox[open] { display: grid; }
+    .gallery-lightbox::backdrop { background: rgba(3,12,24,.97); }
+    .lightbox-toolbar { display: flex; justify-content: flex-end; }
+    .lightbox-close, .lightbox-arrow { display: grid; width: 48px; height: 48px; place-items: center; color: #fff; border: 1px solid rgba(255,255,255,.35); border-radius: 50%; background: rgba(255,255,255,.1); cursor: pointer; }
+    .lightbox-close:hover, .lightbox-arrow:hover { background: rgba(255,255,255,.24); }
+    .lightbox-close svg, .lightbox-arrow svg { width: 23px; height: 23px; }
+    .lightbox-content { display: grid; min-height: 0; grid-template-columns: 48px minmax(0, 1fr) 48px; align-items: center; justify-items: center; gap: 18px; }
+    .lightbox-image { display: block; max-width: 100%; max-height: calc(100vh - 170px); object-fit: contain; }
+    .lightbox-caption { margin: 0; color: #e5edf5; text-align: center; font-size: 1rem; }
 
     .quote-section { position: relative; overflow: hidden; background: #f3f7fa; }
     .quote-section::after { position: absolute; top: -170px; right: -140px; width: 430px; height: 430px; border: 1px solid #dce9f0; border-radius: 50%; content: ""; box-shadow: 0 0 0 45px rgba(220,233,240,.4), 0 0 0 90px rgba(220,233,240,.24); }
@@ -201,6 +229,12 @@
       .visual-bolt { font-size: 7rem; }
       .services-grid { grid-template-columns: 1fr; gap: 13px; }
       .service-card { padding: 23px; }
+      .gallery-controls { margin-top: -12px; }
+      .gallery-card img { height: clamp(280px, 55vh, 520px); }
+      .gallery-lightbox { padding: 14px; }
+      .lightbox-content { grid-template-columns: 40px minmax(0, 1fr) 40px; gap: 8px; }
+      .lightbox-arrow { width: 40px; height: 40px; }
+      .lightbox-image { max-height: calc(100vh - 145px); }
       .quote-form { padding: 22px 18px; }
       .social-row { align-items: flex-start; flex-direction: column; gap: 20px; }
       .footer-row { align-items: flex-start; flex-direction: column; }
@@ -242,6 +276,7 @@
         <a href="#home">Home</a>
         <a href="#about">About</a>
         <a href="#services">Services</a>
+        <a href="#gallery">Gallery</a>
         <a class="nav-quote" href="#quotation">Get a quotation</a>
       </nav>
     </div>
@@ -304,32 +339,120 @@
           <p>Tell us what you’re planning. We’ll help you find the right service and next steps.</p>
         </div>
         <div class="services-grid">
-          <article class="service-card">
+          <a class="service-card" href="electrical-services.html">
             <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 10-13h-7l1-7Z"/></svg></span>
             <h3>Electrical Services</h3>
-            <p>Electrical installation and project support for residential and commercial needs. Share your requirements for a tailored quotation.</p>
-          </article>
-          <article class="service-card">
+            <p>Explore electrical installations and related services for residential and commercial projects.</p>
+            <span class="service-note">View electrical services →</span>
+          </a>
+          <a class="service-card" href="solar-solutions.html">
             <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/><path d="m14 3 1-2m3 5 2-1M7 9h.01"/></svg></span>
             <h3>Solar Solutions</h3>
-            <p>Explore solar options for your property, including project planning and installation inquiries tailored to your energy goals.</p>
-          </article>
-          <article class="service-card">
+            <p>Explore solar planning, installation, energy storage, and system support.</p>
+            <span class="service-note">View solar services →</span>
+          </a>
+          <a class="service-card" href="cad-design.html">
             <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 4h16v16H4zM8 8h8v8H8zM8 2v4m8-4v4M8 18v4m8-4v4M2 8h4m12 0h4M2 16h4m12 0h4"/></svg></span>
             <h3>CAD Design &amp; Drafting</h3>
             <p>CAD design and drafting support to help visualize, document, and prepare your project before work begins.</p>
-          </article>
+            <span class="service-note">View CAD services →</span>
+          </a>
         </div>
         <p class="service-note">Service scope and availability are confirmed for each project. Contact us to discuss your requirements.</p>
       </div>
     </section>
+
+    <section class="section gallery-section" id="gallery">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Our portfolio</span>
+          <h2>Project gallery</h2>
+          <p>Browse our electrical and solar installation work. Scroll through the photos or use the arrows to explore.</p>
+        </div>
+        <div class="gallery-controls" aria-label="Gallery controls">
+          <button class="gallery-control" type="button" data-gallery-direction="-1" aria-label="Scroll gallery left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <button class="gallery-control" type="button" data-gallery-direction="1" aria-label="Scroll gallery right">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+        <div class="gallery-track" id="gallery-track" role="region" aria-label="Project photos" tabindex="0">
+          <figure class="gallery-card">
+            <button class="gallery-image-button" type="button" aria-label="View solar panels on a steep roof fullscreen" aria-haspopup="dialog"><img src="gallery/installed%20solar%20panels%20on%20steep%20roof.jpg" alt="Solar panels installed on a steep roof" loading="lazy"></button>
+            <figcaption>Solar panels on a steep roof</figcaption>
+          </figure>
+          <figure class="gallery-card">
+            <button class="gallery-image-button" type="button" aria-label="View hybrid inverter design fullscreen" aria-haspopup="dialog"><img src="gallery/designing%20a%2032w%20hybrid%20inverter.jpg" alt="Hybrid inverter design work" loading="lazy"></button>
+            <figcaption>Hybrid inverter design</figcaption>
+          </figure>
+          <figure class="gallery-card">
+            <button class="gallery-image-button" type="button" aria-label="View 6.5 kW solar system fullscreen" aria-haspopup="dialog"><img src="gallery/6.5kw%2012kwh%20batter%206.2%20kwp%20panels.jpg" alt="6.5 kW system with 12 kWh battery and 6.2 kWp solar panels" loading="lazy"></button>
+            <figcaption>6.5 kW system · 12 kWh battery · 6.2 kWp panels</figcaption>
+          </figure>
+          <figure class="gallery-card">
+            <button class="gallery-image-button" type="button" aria-label="View roof installation fullscreen" aria-haspopup="dialog"><img src="gallery/roof.jpg" alt="Roof installation project" loading="lazy"></button>
+            <figcaption>Roof installation</figcaption>
+          </figure>
+          <figure class="gallery-card">
+            <button class="gallery-image-button" type="button" aria-label="View 6.5 kW hybrid solar system fullscreen" aria-haspopup="dialog"><img src="gallery/6.5%20hybrid%20system%2016kwhr%20battery%206.3%20kwp%20solar%20panels.jpg" alt="6.5 kW hybrid system with 16 kWh battery and 6.3 kWp solar panels" loading="lazy"></button>
+            <figcaption>6.5 kW hybrid system · 16 kWh battery · 6.3 kWp panels</figcaption>
+          </figure>
+          <figure class="gallery-card">
+            <button class="gallery-image-button" type="button" aria-label="View 6.5 kW hybrid inverter wire termination fullscreen" aria-haspopup="dialog"><img src="gallery/6.5%20hybrid%20inveter%20wire%20termination.jpg" alt="Wire termination for a 6.5 kW hybrid inverter" loading="lazy"></button>
+            <figcaption>6.5 kW hybrid inverter wire termination</figcaption>
+          </figure>
+          <figure class="gallery-card">
+            <button class="gallery-image-button" type="button" aria-label="View hybrid inverter wire termination fullscreen" aria-haspopup="dialog"><img src="gallery/6.5%20hybrid%20inverter%20wire%20termination.jpg" alt="Hybrid inverter wire termination" loading="lazy"></button>
+            <figcaption>Hybrid inverter wire termination</figcaption>
+          </figure>
+          <figure class="gallery-card">
+            <button class="gallery-image-button" type="button" aria-label="View solar panel railing installation fullscreen" aria-haspopup="dialog"><img src="gallery/installing%20railing%20with%20steep%20roof.jpg" alt="Installing solar panel railing on a steep roof" loading="lazy"></button>
+            <figcaption>Installing railing on a steep roof</figcaption>
+          </figure>
+          <figure class="gallery-card">
+            <button class="gallery-image-button" type="button" aria-label="View outdoor conduit installation fullscreen" aria-haspopup="dialog"><img src="gallery/installing%20outdoor%20counduit.jpg" alt="Installing outdoor conduit" loading="lazy"></button>
+            <figcaption>Outdoor conduit installation</figcaption>
+          </figure>
+          <figure class="gallery-card">
+            <button class="gallery-image-button" type="button" aria-label="View battery cable installation fullscreen" aria-haspopup="dialog"><img src="gallery/installing%20battery%20cable.jpg" alt="Installing battery cables" loading="lazy"></button>
+            <figcaption>Battery cable installation</figcaption>
+          </figure>
+          <figure class="gallery-card">
+            <button class="gallery-image-button" type="button" aria-label="View inverter and combiner box fullscreen" aria-haspopup="dialog"><img src="gallery/inverter%20with%20combiner%20box.jpg" alt="Inverter with a combiner box" loading="lazy"></button>
+            <figcaption>Inverter and combiner box</figcaption>
+          </figure>
+          <figure class="gallery-card">
+            <button class="gallery-image-button" type="button" aria-label="View roof solar panel installation fullscreen" aria-haspopup="dialog"><img src="gallery/roof%20with%20panel.jpg" alt="Solar panel mounted on a roof" loading="lazy"></button>
+            <figcaption>Solar panel installation</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+    <dialog class="gallery-lightbox" id="gallery-lightbox" aria-label="Fullscreen project photo">
+      <div class="lightbox-toolbar">
+        <button class="lightbox-close" type="button" aria-label="Close fullscreen photo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <div class="lightbox-content">
+        <button class="lightbox-arrow" type="button" data-lightbox-direction="-1" aria-label="Previous photo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <img class="lightbox-image" alt="">
+        <button class="lightbox-arrow" type="button" data-lightbox-direction="1" aria-label="Next photo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+      </div>
+      <p class="lightbox-caption" aria-live="polite"></p>
+    </dialog>
 
     <section class="section quote-section" id="quotation">
       <div class="container quote-grid">
         <div class="quote-copy">
           <span class="eyebrow">Let’s get started</span>
           <h2>Request a project quotation</h2>
-          <p>Tell us a little about your project. Your email app will open with your request ready to send to our team.</p>
+          <p>Tell us a little about your project. Your email app will open with your request ready to send to our team for review before a quotation is prepared.</p>
           <div class="contact-list">
             <a class="contact-row" href="tel:09453982241"><span class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 11.2 18.8a19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.2 3.18 2 2 0 0 1 4.18 1h3a2 2 0 0 1 2 1.72c.12.96.35 1.9.7 2.8a2 2 0 0 1-.45 2.11L8.16 8.9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.35 1.84.58 2.8.7a2 2 0 0 1 1.66 2.04Z"/></svg></span>0945 398 2241</a>
             <a class="contact-row" href="mailto:tuazonk787@gmail.com"><span class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span>tuazonk787@gmail.com</a>
@@ -404,6 +527,7 @@
       <div class="footer-links">
         <a href="tel:09453982241">Call</a>
         <a href="mailto:tuazonk787@gmail.com">Email</a>
+        <a href="https://mail.google.com/" target="_blank" rel="noopener noreferrer" aria-label="Admin inbox, sign in with the authorized Google account">Admin inbox ↗</a>
         <a href="#home">Back to top ↑</a>
       </div>
     </div>
@@ -447,6 +571,44 @@
 
     document.querySelector("#current-year").textContent = new Date().getFullYear();
 
+    const galleryTrack = document.querySelector("#gallery-track");
+    document.querySelectorAll("[data-gallery-direction]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const card = galleryTrack.querySelector(".gallery-card");
+        const direction = Number(button.dataset.galleryDirection);
+        galleryTrack.scrollBy({ left: direction * card.getBoundingClientRect().width, behavior: "smooth" });
+      });
+    });
+
+    const galleryImages = Array.from(galleryTrack.querySelectorAll(".gallery-card img"));
+    const lightbox = document.querySelector("#gallery-lightbox");
+    const lightboxImage = lightbox.querySelector(".lightbox-image");
+    const lightboxCaption = lightbox.querySelector(".lightbox-caption");
+    let currentGalleryImage = 0;
+    const showGalleryImage = (index) => {
+      currentGalleryImage = (index + galleryImages.length) % galleryImages.length;
+      const image = galleryImages[currentGalleryImage];
+      lightboxImage.src = image.src;
+      lightboxImage.alt = image.alt;
+      lightboxCaption.textContent = image.closest(".gallery-card").querySelector("figcaption").textContent;
+    };
+    galleryTrack.querySelectorAll(".gallery-image-button").forEach((button, index) => {
+      button.addEventListener("click", () => {
+        showGalleryImage(index);
+        lightbox.showModal();
+      });
+    });
+    lightbox.querySelector(".lightbox-close").addEventListener("click", () => lightbox.close());
+    lightbox.querySelectorAll("[data-lightbox-direction]").forEach((button) => {
+      button.addEventListener("click", () => showGalleryImage(currentGalleryImage + Number(button.dataset.lightboxDirection)));
+    });
+    lightbox.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+        event.preventDefault();
+        showGalleryImage(currentGalleryImage + (event.key === "ArrowRight" ? 1 : -1));
+      }
+    });
+
     const quoteForm = document.querySelector("#quote-form");
     quoteForm.addEventListener("submit", (event) => {
       event.preventDefault();
@@ -461,10 +623,12 @@
         `Service: ${data.get("service")}`,
         "",
         "Project details:",
-        data.get("details")
+        data.get("details"),
+        "",
+        "Please review the project details and follow up with the client after evaluation."
       ].join("\n");
       const mailto = `mailto:tuazonk787@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      document.querySelector("#form-status").textContent = "Your email app should open with the request details. Please send the email to complete your inquiry.";
+      document.querySelector("#form-status").textContent = "Your email app should open with the request details. Please send the email to submit your inquiry. Our team will review it before preparing a quotation.";
       window.location.href = mailto;
     });
 
